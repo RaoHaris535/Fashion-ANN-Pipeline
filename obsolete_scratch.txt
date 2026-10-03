@@ -1,0 +1,1 @@
+Temporary scratch note retained only for the git rm demonstration.
