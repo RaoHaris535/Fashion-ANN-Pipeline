@@ -1,6 +1,7 @@
 # Python environments and caches
 venv/
 .venv/
+.ml-venv/
 __pycache__/
 *.py[cod]
 
@@ -11,6 +12,9 @@ __pycache__/
 
 # Model payloads are managed by DVC
 *.h5
+/data/raw/
+/data/processed/
+/models/
 
 # Local credentials and secrets
 *.json.credential
@@ -21,4 +25,3 @@ token.json
 # Generated evidence and report build intermediates
 evidence/
 tmp/
-
