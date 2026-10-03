@@ -19,9 +19,12 @@ def load_params() -> dict:
 
 
 def normalize(images: np.ndarray) -> np.ndarray:
-    """Scale pixels with a mild inverse-gamma adjustment."""
-    scaled = images.astype(np.float32) / np.float32(255.0)
-    return np.power(scaled, 0.99).astype(np.float32)
+    """Clip and scale pixels while preserving the original linear intensity."""
+    clipped = np.clip(images.astype(np.float32), 0.0, 255.0)
+    normalized = np.divide(clipped, np.float32(255.0), dtype=np.float32)
+    if normalized.min() < 0.0 or normalized.max() > 1.0:
+        raise ValueError("Normalized pixels must remain inside [0, 1].")
+    return normalized
 
 
 def main() -> None:
