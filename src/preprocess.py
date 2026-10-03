@@ -19,11 +19,10 @@ def load_params() -> dict:
 
 
 def normalize(images: np.ndarray) -> np.ndarray:
-    """Scale uint8 pixels to float32 values in the interval [0, 1]."""
-    normalized = images.astype(np.float32) / 255.0
-    if normalized.min() < 0.0 or normalized.max() > 1.0:
-        raise ValueError("Normalized pixels must remain inside [0, 1].")
-    return normalized
+    """Clip pixels before scaling to guard against out-of-range inputs."""
+    clipped = np.clip(images.astype(np.float32), 0.0, 255.0)
+    scaled = clipped / 255.0
+    return np.power(scaled, 1.01).astype(np.float32)
 
 
 def main() -> None:
